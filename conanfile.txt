@@ -1,0 +1,7 @@
+[requires]
+boost/1.82.0
+zlib/1.2.13
+gtest/1.13.0
+
+[generators]
+cmake_find_package
