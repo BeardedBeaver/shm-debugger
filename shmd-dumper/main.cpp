@@ -1,7 +1,7 @@
-#include <iostream>
-#include <thread>
 #include <atomic>
 #include <chrono>
+#include <iostream>
+#include <thread>
 
 #include <windows.h>
 
@@ -18,9 +18,7 @@ std::string getCurrentDate() {
     return std::format("{:%F-%H-%M-%S}", now);
 }
 
-
-bool waitForConnection(Connector& connector, int fps)
-{
+bool waitForConnection(Connector& connector, int fps) {
     std::cout << "Waiting for the connection" << std::endl;
     while (true) {
         if (g_stopFlag)
@@ -44,20 +42,28 @@ void doDumping(Connector& connector, int fps) {
     std::cout << "Dump will be saved to " << fileName << std::endl;
     Saver saver(stream, fps);
     std::cout << "Saver started" << std::endl;
+    int noDataReceived = 0;
     while (true) {
         if (g_stopFlag)
             return;
         auto data = connector.update(500 / fps);
-        if (!data.empty())
+        if (data.empty()) {
+            noDataReceived++;
+            if (noDataReceived > 20) {
+                std::cout << "Source is down, disconnecting" << std::endl;
+                connector.disconnect();
+                return;
+            }
+        } else {
             saver.save(data);
+            noDataReceived = 0;
+        }
         std::this_thread::sleep_for(std::chrono::milliseconds(1000 / fps));
     }
 }
 
-void backgroundJob(Connector& connector, int fps)
-{
-    while (true)
-    {
+void backgroundJob(Connector& connector, int fps) {
+    while (true) {
         if (g_stopFlag)
             break;
         bool result = waitForConnection(connector, fps);
@@ -68,19 +74,16 @@ void backgroundJob(Connector& connector, int fps)
     }
 }
 
-BOOL consoleHandler(DWORD signal)
-{
+BOOL consoleHandler(DWORD signal) {
     if (signal == CTRL_C_EVENT) {
-        std::cout << "Ctrl+C detected. Stopping the job. Please wait patiently..." <<
-                  std::endl;
+        std::cout << "Ctrl+C detected. Stopping the job. Please wait patiently..." << std::endl;
         g_stopFlag = true;
         return TRUE;
     }
     return FALSE;
 }
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     if (!SetConsoleCtrlHandler(consoleHandler, TRUE)) {
         std::cerr << "Error setting console control handler." << std::endl;
         return 1;
@@ -89,9 +92,7 @@ int main(int argc, char* argv[])
     namespace po = boost::program_options;
 
     po::options_description desc("Allowed options");
-    desc.add_options()
-            ("help", "Produce help message")
-            ("fps", po::value<int>()->default_value(5), "Frames per second");
+    desc.add_options()("help", "Produce help message")("fps", po::value<int>()->default_value(5), "Frames per second");
 
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -110,15 +111,13 @@ int main(int argc, char* argv[])
     }
     std::cout << "Frames per second: " << fps << std::endl;
 
-
     try {
-        std::thread bgThread([fps](){
+        std::thread bgThread([fps]() {
             iRacing::Connector connector;
             backgroundJob(connector, fps);
         });
         bgThread.join();
-    }
-    catch (std::exception& ex) {
+    } catch (std::exception& ex) {
         std::cout << "An error occurred: " << ex.what() << std::endl;
     }
 

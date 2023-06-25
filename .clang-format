@@ -11,3 +11,8 @@ AllowShortBlocksOnASingleLine: Empty
 AllowAllParametersOfDeclarationOnNextLine: false
 AllowAllArgumentsOnNextLine: false
 ColumnLimit: 0
+PointerAlignment: Left
+ReferenceAlignment: Left
+IndentAccessModifiers: false
+AccessModifierOffset: -4
+InsertNewlineAtEOF: true

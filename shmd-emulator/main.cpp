@@ -1,30 +1,29 @@
-#include <iostream>
-#include <thread>
 #include <atomic>
 #include <chrono>
 #include <fstream>
+#include <iostream>
+#include <thread>
 
 #include <windows.h>
 
 #include <boost/program_options.hpp>
 
-#include "loader.h"
 #include "iracing_emulator.h"
+#include "loader.h"
 
 std::atomic<bool> g_stopFlag(false);
 
 BOOL consoleHandler(DWORD signal) {
     static_assert(std::atomic<bool>::is_always_lock_free);
     if (signal == CTRL_C_EVENT) {
-        std::cout << "Ctrl+C detected. Stopping the job. Please wait patiently..." <<
-                  std::endl;
+        std::cout << "Ctrl+C detected. Stopping the job. Please wait patiently..." << std::endl;
         g_stopFlag = true;
         return TRUE;
     }
     return FALSE;
 }
 
-void backgroundJob(Emulator &emulator, Loader &loader, int fps) {
+void backgroundJob(Emulator& emulator, Loader& loader, int fps) {
     std::cout << "Press Ctrl+C to stop the tool" << std::endl;
     while (true) {
         if (g_stopFlag)
@@ -39,7 +38,7 @@ void backgroundJob(Emulator &emulator, Loader &loader, int fps) {
     }
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     if (!SetConsoleCtrlHandler(consoleHandler, TRUE)) {
         std::cerr << "Error setting console control handler." << std::endl;
         return 1;
@@ -49,9 +48,8 @@ int main(int argc, char *argv[]) {
     std::string inputFileName;
 
     po::options_description desc("Allowed options");
-    desc.add_options()
-            ("help", "Produce help message")
-            ("input-file", po::value<std::string>(&inputFileName)->required(), "Input file name");
+    desc.add_options()("help", "Produce help message")("input-file", po::value<std::string>(&inputFileName)->required(),
+                                                       "Input file name");
 
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -63,8 +61,7 @@ int main(int argc, char *argv[]) {
 
     try {
         po::notify(vm);
-    }
-    catch (const std::exception &ex) {
+    } catch (const std::exception& ex) {
         std::cerr << "Error: " << ex.what() << std::endl;
         return 1;
     }
@@ -77,13 +74,11 @@ int main(int argc, char *argv[]) {
             emulator.initialize();
             int fps = loader.getFps();
             std::cout << "Frames per second: " << fps << std::endl;
-
+            std::cout << "Emulator started" << std::endl;
             backgroundJob(emulator, loader, fps);
-
         });
         bgThread.join();
-    }
-    catch (std::exception &ex) {
+    } catch (std::exception& ex) {
         std::cout << "An error occurred: " << ex.what() << std::endl;
     }
 
