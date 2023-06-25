@@ -17,10 +17,11 @@ Loader::Loader(std::istream& stream)
     }
 
     m_stream.read(reinterpret_cast<char*>(&m_fps), sizeof(m_fps));
+    m_stream.read(m_id.data(), m_id.size());
 
     // Skip padding data
     [[maybe_unused]] int32_t paddingValue = 0;
-    m_stream.ignore(15 * sizeof(paddingValue));
+    m_stream.ignore(14 * sizeof(paddingValue));
 }
 
 std::vector<char> Loader::load() {
@@ -52,4 +53,8 @@ std::vector<char> Loader::load() {
 
 int Loader::getFps() const {
     return m_fps;
+}
+
+std::array<char, 4> Loader::getId() const {
+    return m_id;
 }

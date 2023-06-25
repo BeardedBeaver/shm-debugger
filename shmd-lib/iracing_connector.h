@@ -19,6 +19,7 @@ public:
     bool connect(int timeoutMs) override;
     void disconnect() override;
     std::vector<char> update(int timeoutMs) override;
+    std::array<char, 4> id() const override;
 
     Connector(const Connector&) = delete;
     Connector(Connector&&) = delete;

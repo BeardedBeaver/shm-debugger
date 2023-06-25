@@ -49,6 +49,8 @@ TEST(LoaderSaverTest, Breathing) {
     auto v4 = std::vector<char>(s4.begin(), s4.end());
 
     TemporaryFile file;
+    const int fps = 42;
+    const std::array<char, 4> id = {'A', 'B', 'C', 'D'};
 
     {
         std::ofstream out(file.getPath(), std::ios::binary);
@@ -56,7 +58,7 @@ TEST(LoaderSaverTest, Breathing) {
         ASSERT_TRUE(out);
         ASSERT_TRUE(out.is_open());
 
-        Saver saver(out, 42);
+        Saver saver(out, fps, id);
 
         saver.save(v1);
         saver.save(v2);
@@ -71,7 +73,8 @@ TEST(LoaderSaverTest, Breathing) {
         ASSERT_TRUE(in.is_open());
 
         Loader loader(in);
-        ASSERT_EQ(loader.getFps(), 42);
+        ASSERT_EQ(loader.getFps(), fps);
+        ASSERT_EQ(loader.getId(), id);
 
         auto d1 = loader.load();
         auto d2 = loader.load();

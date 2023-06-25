@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
             Loader loader(stream);
             iRacing::Emulator emulator;
             emulator.initialize();
-            int fps = loader.getFps();
+            const int fps = loader.getFps();
             std::cout << "Frames per second: " << fps << std::endl;
             std::cout << "Emulator started" << std::endl;
             backgroundJob(emulator, loader, fps);

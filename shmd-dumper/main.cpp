@@ -40,7 +40,7 @@ void doDumping(Connector& connector, int fps) {
         throw std::ios_base::failure("Failed to open the file " + fileName);
     }
     std::cout << "Dump will be saved to " << fileName << std::endl;
-    Saver saver(stream, fps);
+    Saver saver(stream, fps, connector.id());
     std::cout << "Saver started" << std::endl;
     int noDataReceived = 0;
     while (true) {

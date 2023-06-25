@@ -8,9 +8,7 @@ but can be expanded to use with any app with similar usage pattern
 
 **This is a WIP version! TODO for the first release:**
 
-* [ ] Detect disconnect from iRacing
 * [ ] Detect simulator by looping through the list of connectors
-* [ ] Write simulator name to the output file
 
 General TODO:
 
