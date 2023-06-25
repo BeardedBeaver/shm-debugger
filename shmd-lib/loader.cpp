@@ -5,9 +5,9 @@
 
 #include <zlib.h>
 
-Loader::Loader(std::istream &stream) :
-        m_stream(stream),
-        m_fps{} {
+Loader::Loader(std::istream& stream)
+    : m_stream(stream),
+      m_fps{} {
     assert(m_stream);
     std::string header(8, '\0');
     m_stream.read(&header[0], 8);
@@ -16,7 +16,7 @@ Loader::Loader(std::istream &stream) :
         throw std::invalid_argument("Invalid file format.");
     }
 
-    m_stream.read(reinterpret_cast<char *>(&m_fps), sizeof(m_fps));
+    m_stream.read(reinterpret_cast<char*>(&m_fps), sizeof(m_fps));
 
     // Skip padding data
     [[maybe_unused]] int32_t paddingValue = 0;
@@ -25,10 +25,10 @@ Loader::Loader(std::istream &stream) :
 
 std::vector<char> Loader::load() {
     uint32_t compressedDataLength;
-    m_stream.read(reinterpret_cast<char *>(&compressedDataLength), sizeof(compressedDataLength));
+    m_stream.read(reinterpret_cast<char*>(&compressedDataLength), sizeof(compressedDataLength));
 
     uint32_t rawDataLength;
-    m_stream.read(reinterpret_cast<char *>(&rawDataLength), sizeof(rawDataLength));
+    m_stream.read(reinterpret_cast<char*>(&rawDataLength), sizeof(rawDataLength));
 
     if (m_stream.eof()) {
         return {};
@@ -40,8 +40,8 @@ std::vector<char> Loader::load() {
     uLongf uncompressedSize = rawDataLength;
     std::vector<char> uncompressedData(uncompressedSize);
 
-    int result = uncompress(reinterpret_cast<Bytef *>(&uncompressedData[0]), &uncompressedSize,
-                            reinterpret_cast<const Bytef *>(compressedData.get()), compressedDataLength);
+    int result = uncompress(reinterpret_cast<Bytef*>(&uncompressedData[0]), &uncompressedSize,
+                            reinterpret_cast<const Bytef*>(compressedData.get()), compressedDataLength);
 
     if (result != Z_OK) {
         throw std::invalid_argument("Failed to decompress data. File is corrupted?");

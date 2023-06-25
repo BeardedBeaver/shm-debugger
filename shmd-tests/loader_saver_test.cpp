@@ -1,6 +1,6 @@
-#include <gtest/gtest.h>
 #include <filesystem>
 #include <fstream>
+#include <gtest/gtest.h>
 
 #include "loader.h"
 #include "saver.h"
@@ -21,7 +21,7 @@ public:
         }
     }
 
-    const fs::path &getPath() const {
+    const fs::path& getPath() const {
         return m_tempPath;
     }
 
@@ -29,7 +29,6 @@ private:
     fs::path m_tempDir;
     fs::path m_tempPath;
 };
-
 
 TEST(LoaderSaverTest, Breathing) {
     std::string s1 = "The quick brown fox jumps over the lazy dog";
@@ -84,5 +83,4 @@ TEST(LoaderSaverTest, Breathing) {
         ASSERT_EQ(v3, d3);
         ASSERT_EQ(v4, d4);
     }
-
 }

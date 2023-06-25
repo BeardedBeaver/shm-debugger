@@ -6,10 +6,10 @@
 
 namespace iRacing {
 
-class Emulator: public ::Emulator {
+class Emulator : public ::Emulator {
     HANDLE m_fileMappingHandle{};
     HANDLE m_memMapFile{};
-    char * m_sharedMem{};
+    char* m_sharedMem{};
     HANDLE m_dataValidEvent{};
 
 public:

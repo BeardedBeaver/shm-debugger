@@ -16,3 +16,4 @@ ReferenceAlignment: Left
 IndentAccessModifiers: false
 AccessModifierOffset: -4
 InsertNewlineAtEOF: true
+FixNamespaceComments: false

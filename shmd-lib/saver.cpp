@@ -4,9 +4,8 @@
 
 #include <zlib.h>
 
-Saver::Saver(std::ostream &stream, int32_t fps) :
-    m_stream(stream)
-{
+Saver::Saver(std::ostream& stream, int32_t fps)
+    : m_stream(stream) {
     assert(m_stream);
     std::string header = "RECROCKS";
     m_stream.write(header.c_str(), header.length());
