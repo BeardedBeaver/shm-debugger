@@ -7,7 +7,7 @@ add_executable(shmd-tests
         iracing_data_test.cpp
         iracing_emulator_test.cpp
         loader_saver_test.cpp
-        )
+        application_test.cpp)
 
 target_link_libraries(
         shmd-tests

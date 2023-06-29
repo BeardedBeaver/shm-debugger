@@ -17,3 +17,4 @@ IndentAccessModifiers: false
 AccessModifierOffset: -4
 InsertNewlineAtEOF: true
 FixNamespaceComments: false
+SortIncludes: Never

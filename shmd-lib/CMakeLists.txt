@@ -10,7 +10,8 @@ set(PROJECT_SOURCES
         iracing_emulator.cpp
         iracing_data.cpp
         iracing_data.h
-        )
+        application.cpp
+        application.h)
 
 add_library(shmd-lib STATIC ${PROJECT_SOURCES})
 
