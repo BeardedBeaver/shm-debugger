@@ -6,15 +6,9 @@ to analyze and troubleshoot issues. Primarily aimed for racing simulators,
 but can be expanded to use with any app with similar usage pattern
 (read data updated by app in shared memory).
 
-**This is a WIP version! TODO for the first release:**
+TODO:
 
-* [ ] Detect simulator by looping through the list of connectors
-
-General TODO:
-
-* [ ] Refactor repeated code from tools to the library
 * [ ] GitHub Actions CI
-* [ ] `--output-file` option for `dumper`
 * [ ] AC and ACC support
 * [ ] R3E support?
 * [ ] Docs
@@ -50,6 +44,10 @@ Allowed options:
 - iRacing
 
 AC and ACC are coming later
+
+# Known issues
+
+- Delay time might be inaccurate for FPS > 20 due to a suboptimal implementation of sleep function
 
 # Dependencies
 
