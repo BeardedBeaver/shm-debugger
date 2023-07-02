@@ -45,10 +45,6 @@ Allowed options:
 
 AC and ACC are coming later
 
-# Known issues
-
-- Delay time might be inaccurate for FPS > 20 due to a suboptimal implementation of sleep function
-
 # Dependencies
 
 - boost
