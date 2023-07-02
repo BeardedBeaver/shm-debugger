@@ -11,7 +11,8 @@ TEST(ApplicationTest, run) {
         return mockTime;
     };
 
-    auto mockSleepFunction = [&mockTime, &sleepDurations](steady_clock::duration duration) {
+    auto mockSleepFunction = [&mockTime, &sleepDurations](int ms) {
+        auto duration = std::chrono::milliseconds(ms);
         mockTime += duration;
         sleepDurations.push_back(duration);
     };
