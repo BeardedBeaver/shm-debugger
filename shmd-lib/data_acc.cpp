@@ -1,6 +1,8 @@
 #include "data_acc.h"
 
-std::vector<char> ACC::serializeData(const ACC::Data& data) {
+namespace ACC {
+
+std::vector<char> serializeData(const Data& data) {
     // to catch potential changes
     static_assert(sizeof(SPageFileGraphicACC) == 1588);
     static_assert(sizeof(SPageFilePhysicsACC) == 800);
@@ -33,6 +35,23 @@ std::vector<char> ACC::serializeData(const ACC::Data& data) {
     return result;
 }
 
-ACC::Data ACC::deserializeData(const std::vector<char>& bytes) {
-    return {};
+Data deserializeData(const std::vector<char>& bytes) {
+    Data result;
+
+    // Check if the provided bytes vector has enough data for deserialization
+    const size_t totalGraphicsSize = 1700;
+    const size_t totalPhysicsSize = 1000;
+    const size_t totalStaticSize = 1000;
+
+    if (bytes.size() < (totalGraphicsSize + totalPhysicsSize + totalStaticSize)) {
+        return result;
+    }
+
+    memcpy(&result.graphics, bytes.data(), sizeof(SPageFileGraphicACC));
+    memcpy(&result.physics, bytes.data() + totalGraphicsSize, sizeof(SPageFilePhysicsACC));
+    memcpy(&result.statics, bytes.data() + totalGraphicsSize + totalPhysicsSize, sizeof(SPageFileStaticACC));
+
+    return result;
+}
+
 }
