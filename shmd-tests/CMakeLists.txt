@@ -7,7 +7,8 @@ add_executable(shmd-tests
         data_iracing_test.cpp
         emulator_iracing_test.cpp
         loader_saver_test.cpp
-        application_test.cpp)
+        application_test.cpp
+        data_acc_test.cpp)
 
 target_link_libraries(
         shmd-tests
