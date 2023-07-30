@@ -9,9 +9,12 @@ set(PROJECT_SOURCES
         iracing_connector.cpp
         iracing_emulator.cpp
         iracing_data.cpp
-        iracing_data.h
         application.cpp
-        application.h)
+        acc_connector.cpp
+        acsdk/shm.cpp
+        acc_data.cpp
+        acc_data.h
+)
 
 add_library(shmd-lib STATIC ${PROJECT_SOURCES})
 
@@ -22,4 +25,5 @@ target_include_directories(shmd-lib PUBLIC
         connectors
         emulators
         irsdk
-        )
+        acsdk
+)

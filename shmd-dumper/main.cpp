@@ -7,6 +7,7 @@
 
 #include "application.h"
 #include "iracing_connector.h"
+#include "acc_connector.h"
 #include "saver.h"
 
 std::string getCurrentDate() {
@@ -53,7 +54,7 @@ int main(int argc, char* argv[]) {
         while (!app.isStopped()) {
             std::cout << "Waiting for the connection" << std::endl;
             app.run(
-                [&connector, fps]() -> bool {
+                [&connector]() -> bool {
                     bool result = connector.connect(1000); // twice longer than a given fps
                     if (result) {
                         std::cout << "Connected" << std::endl;
