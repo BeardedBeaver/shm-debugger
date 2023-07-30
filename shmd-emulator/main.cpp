@@ -6,6 +6,7 @@
 
 #include "application.h"
 #include "emulator_iracing.h"
+#include "emulator_acc.h"
 #include "loader.h"
 
 int main(int argc, char* argv[]) {
@@ -35,10 +36,15 @@ int main(int argc, char* argv[]) {
     }
 
     try {
+        std::map<std::array<char, 4>, std::shared_ptr<Emulator>> emulators;
+        emulators[{'a', 'c', 'c', 'z'}] = std::make_shared<ACC::Emulator>();
+        emulators[{'i', 'r', 'a', 'c'}] = std::make_shared<iRacing::Emulator>();
+
         std::ifstream stream(inputFileName, std::ios::binary);
         Loader loader(stream);
-        iRacing::Emulator emulator;
-        emulator.initialize();
+
+        auto emulator = emulators.at(loader.getId());
+        emulator->initialize();
 
         Application app;
         std::cout << "Frames per second: " << loader.getFps() << std::endl;
@@ -52,7 +58,7 @@ int main(int argc, char* argv[]) {
                     return true;
                 }
 
-                emulator.update(data);
+                emulator->update(data);
                 return false;
             },
             loader.getFps());
