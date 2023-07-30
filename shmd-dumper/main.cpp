@@ -50,15 +50,26 @@ int main(int argc, char* argv[]) {
 
     try {
         Application app;
-        iRacing::Connector connector;
+
+        std::vector<std::shared_ptr<Connector>> connectors;
+        connectors.reserve(2);
+
+        connectors.push_back(std::make_shared<iRacing::Connector>());
+        connectors.push_back(std::make_shared<ACC::Connector>());
+
+        std::shared_ptr<Connector> connector;
+
         while (!app.isStopped()) {
             std::cout << "Waiting for the connection" << std::endl;
             app.run(
-                [&connector]() -> bool {
-                    bool result = connector.connect(1000); // twice longer than a given fps
-                    if (result) {
-                        std::cout << "Connected" << std::endl;
-                        return true;
+                [&connectors, &connector]() -> bool {
+                    for (const auto& c : connectors) {
+                        bool result = c->connect(1000); // twice longer than a given fps
+                        if (result) {
+                            connector = c;
+                            std::cout << "Connected" << std::endl;
+                            return true;
+                        }
                     }
                     return false;
                 },
@@ -75,19 +86,19 @@ int main(int argc, char* argv[]) {
                 throw std::ios_base::failure("Failed to open the file " + fileName);
             }
             std::cout << "Dump will be saved to " << fileName << std::endl;
-            Saver saver(stream, fps, connector.id());
+            Saver saver(stream, fps, connector->id());
             std::cout << "Saver started" << std::endl;
 
             int noDataReceived = 0;
 
             app.run(
                 [&connector, &saver, &noDataReceived, fps]() -> bool {
-                    auto data = connector.update(1000 / fps);
+                    auto data = connector->update(1000 / fps);
                     if (data.empty()) {
                         noDataReceived++;
                         if (noDataReceived > 20) {
                             std::cout << "Source is down, disconnecting" << std::endl;
-                            connector.disconnect();
+                            connector->disconnect();
                             return true;
                         }
                     } else {
