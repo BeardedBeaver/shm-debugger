@@ -1,16 +1,16 @@
 #pragma once
 
-#include "emulator.h"
-
 #include "windows.h"
 
-namespace iRacing {
+#include "emulator.h"
+#include "shm.h"
+
+namespace ACC {
 
 class Emulator : public ::Emulator {
-    HANDLE m_fileMappingHandle{};
-    HANDLE m_memMapFile{};
-    char* m_sharedMem{};
-    HANDLE m_dataValidEvent{};
+    SMElement m_graphicsACC;
+    SMElement m_physicsACC;
+    SMElement m_staticACC;
 
 public:
     Emulator() = default;

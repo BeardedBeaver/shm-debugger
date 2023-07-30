@@ -13,7 +13,7 @@ set(PROJECT_SOURCES
         connector_acc.cpp
         acsdk/shm.cpp
         data_acc.cpp
-        data_acc.h
+        emulator_acc.cpp
 )
 
 add_library(shmd-lib STATIC ${PROJECT_SOURCES})
