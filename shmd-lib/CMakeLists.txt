@@ -6,14 +6,14 @@ set(PROJECT_SOURCES
         saver.cpp
         loader.cpp
         irsdk/irsdk_utils.cpp
-        iracing_connector.cpp
-        iracing_emulator.cpp
-        iracing_data.cpp
+        connector_iracing.cpp
+        emulator_iracing.cpp
+        data_iracing.cpp
         application.cpp
-        acc_connector.cpp
+        connector_acc.cpp
         acsdk/shm.cpp
-        acc_data.cpp
-        acc_data.h
+        data_acc.cpp
+        data_acc.h
 )
 
 add_library(shmd-lib STATIC ${PROJECT_SOURCES})

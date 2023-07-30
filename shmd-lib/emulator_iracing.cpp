@@ -1,10 +1,10 @@
-#include "iracing_emulator.h"
+#include "emulator_iracing.h"
 
 #include <cassert>
 #include <iostream>
 #include <stdexcept>
 
-#include "iracing_connector.h"
+#include "connector_iracing.h"
 #include "irsdk_defines.h"
 
 namespace iRacing {

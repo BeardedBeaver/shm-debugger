@@ -4,8 +4,8 @@ find_package(GTest REQUIRED)
 
 add_executable(shmd-tests
         main.cpp
-        iracing_data_test.cpp
-        iracing_emulator_test.cpp
+        data_iracing_test.cpp
+        emulator_iracing_test.cpp
         loader_saver_test.cpp
         application_test.cpp)
 

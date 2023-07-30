@@ -1,4 +1,4 @@
-#include "iracing_connector.h"
+#include "connector_iracing.h"
 
 namespace iRacing {
 bool Connector::connect(int timeoutMs) {

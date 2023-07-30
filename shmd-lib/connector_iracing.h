@@ -1,14 +1,17 @@
 #pragma once
 
+#include <memory>
+#include <optional>
+#include <string>
+
 #include "connector.h"
+#include "data_iracing.h"
 
-#include "shm.h"
-#include "acc_data.h"
-
-namespace ACC {
-
+namespace iRacing {
 class Connector : public ::Connector {
-    shm acData;
+    int rawDataLength{};
+    int sessionInfoUpdate{};
+    std::unique_ptr<char[]> rawData{};
 
 public:
     Connector() = default;

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "iracing_emulator.h"
+#include "emulator_iracing.h"
 
 TEST(iRacingEmulatorTest, Construction) {
     iRacing::Emulator emulator;

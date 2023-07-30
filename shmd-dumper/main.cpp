@@ -6,8 +6,8 @@
 #include <fstream>
 
 #include "application.h"
-#include "iracing_connector.h"
-#include "acc_connector.h"
+#include "connector_iracing.h"
+#include "connector_acc.h"
 #include "saver.h"
 
 std::string getCurrentDate() {

@@ -5,7 +5,7 @@
 #include <boost/program_options.hpp>
 
 #include "application.h"
-#include "iracing_emulator.h"
+#include "emulator_iracing.h"
 #include "loader.h"
 
 int main(int argc, char* argv[]) {
