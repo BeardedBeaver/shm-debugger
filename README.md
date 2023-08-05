@@ -9,7 +9,7 @@ but can be expanded to use with any app with similar usage pattern
 TODO:
 
 * [ ] GitHub Actions CI
-* [ ] AC and ACC support
+* [ ] AC support
 * [ ] R3E support?
 * [ ] Docs
 
@@ -42,8 +42,9 @@ Allowed options:
 # Supported simulators
 
 - iRacing
+- Assetto Corsa Competizione
 
-AC and ACC are coming later
+Vanilla AC is coming later
 
 # Dependencies
 
