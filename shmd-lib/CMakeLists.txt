@@ -5,15 +5,15 @@ find_package(ZLIB REQUIRED)
 set(PROJECT_SOURCES
         saver.cpp
         loader.cpp
-        irsdk/irsdk_utils.cpp
-        connector_iracing.cpp
-        emulator_iracing.cpp
-        data_iracing.cpp
+        iracing/irsdk/irsdk_utils.cpp
+        iracing/data_iracing.cpp
+        iracing/connector_iracing.cpp
+        iracing/emulator_iracing.cpp
         application.cpp
-        connector_acc.cpp
-        acsdk/shm.cpp
-        data_acc.cpp
-        emulator_acc.cpp
+        ac/acsdk/shm.cpp
+        ac/data_acc.cpp
+        ac/connector_acc.cpp
+        ac/emulator_acc.cpp
 )
 
 add_library(shmd-lib STATIC ${PROJECT_SOURCES})
@@ -24,6 +24,8 @@ target_include_directories(shmd-lib PUBLIC
         .
         connectors
         emulators
-        irsdk
-        acsdk
+        iracing
+        iracing/irsdk
+        ac
+        ac/acsdk
 )
