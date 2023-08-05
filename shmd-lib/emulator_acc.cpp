@@ -77,6 +77,9 @@ void Emulator::update(const std::vector<char>& bytes) {
 }
 
 void Emulator::stop() {
+    CloseHandle(m_graphicsACC.mapFileBuffer);
+    CloseHandle(m_physicsACC.mapFileBuffer);
+    CloseHandle(m_staticACC.mapFileBuffer);
 }
 
 }
