@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <array>
 
 #include "irsdk/irsdk_defines.h"
 
@@ -17,4 +18,7 @@ struct Data {
 
 std::vector<char> serializeData(const Data& data);
 Data deserializeData(const std::vector<char>& bytes);
+
+std::array<char, 4> id();
+
 }

@@ -6,7 +6,9 @@
 
 #include "application.h"
 #include "emulator_iracing.h"
+#include "data_iracing.h"
 #include "emulator_acc.h"
+#include "data_acc.h"
 #include "loader.h"
 
 int main(int argc, char* argv[]) {
@@ -37,13 +39,18 @@ int main(int argc, char* argv[]) {
 
     try {
         std::map<std::array<char, 4>, std::shared_ptr<Emulator>> emulators;
-        emulators[{'a', 'c', 'c', 'z'}] = std::make_shared<ACC::Emulator>();
-        emulators[{'i', 'r', 'a', 'c'}] = std::make_shared<iRacing::Emulator>();
+        emulators[ACC::id()] = std::make_shared<ACC::Emulator>();
+        emulators[iRacing::id()] = std::make_shared<iRacing::Emulator>();
 
         std::ifstream stream(inputFileName, std::ios::binary);
         Loader loader(stream);
 
         auto emulator = emulators.at(loader.getId());
+        std::cout << "Using emulator: ";
+        for (char c : loader.getId()) {
+            std::cout << c;
+        }
+        std::cout << std::endl;
         emulator->initialize();
 
         Application app;

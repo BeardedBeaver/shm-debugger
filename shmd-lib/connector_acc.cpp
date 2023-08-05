@@ -45,7 +45,7 @@ std::vector<char> Connector::update(int timeoutMs) {
 }
 
 std::array<char, 4> Connector::id() const {
-    return {'a', 'c', 'c', 'z'};
+    return ACC::id();
 }
 
 }

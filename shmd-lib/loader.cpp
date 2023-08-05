@@ -7,7 +7,8 @@
 
 Loader::Loader(std::istream& stream)
     : m_stream(stream),
-      m_fps{} {
+      m_fps{},
+      m_id{} {
     assert(m_stream);
     std::string header(8, '\0');
     m_stream.read(&header[0], 8);

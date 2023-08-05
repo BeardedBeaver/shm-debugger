@@ -50,4 +50,9 @@ Data deserializeData(const std::vector<char>& bytes) {
 
     return result;
 }
+
+std::array<char, 4> id() {
+    return {'i', 'r', 'a', 'c'};
+}
+
 }

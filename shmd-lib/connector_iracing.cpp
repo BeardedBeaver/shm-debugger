@@ -55,6 +55,7 @@ std::vector<char> Connector::update(int timeoutMs) {
     return {};
 }
 std::array<char, 4> Connector::id() const {
-    return {'i', 'r', 'a', 'c'};
+    return iRacing::id();
 }
+
 }
