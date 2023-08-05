@@ -67,7 +67,12 @@ int main(int argc, char* argv[]) {
                         bool result = c->connect(1000); // twice longer than a given fps
                         if (result) {
                             connector = c;
-                            std::cout << "Connected" << std::endl;
+                            std::cout << "Connected to " << std::endl;
+                            for (char ch : connector->id()) {
+                                std::cout << ch;
+                            }
+                            std::cout << std::endl;
+
                             return true;
                         }
                     }
