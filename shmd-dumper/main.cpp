@@ -80,7 +80,7 @@ int main(int argc, char* argv[]) {
             }
 
             auto date = getCurrentDate();
-            std::string fileName = "ir_dump_" + date + ".bin";
+            std::string fileName = "shmd_dump_" + date + ".bin";
             std::ofstream stream(fileName, std::ios::binary);
             if (!stream) {
                 throw std::ios_base::failure("Failed to open the file " + fileName);
