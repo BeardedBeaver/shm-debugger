@@ -27,7 +27,7 @@ jobs:
         run: |
           $modulePath = "${{ github.workspace }}/cmake-build/dependencies/conan"
           $normalizedModulePath = $modulePath -replace '\\', '/'
-          cmake -S . -B cmake-build-release-visual-studio -D "CMAKE_MODULE_PATH=$normalizedModulePath"
+          cmake -S . -B cmake-build -D "CMAKE_MODULE_PATH=$normalizedModulePath"
       - name: Build
         run: cmake --build cmake-build --config Release
       - name: Test
