@@ -33,10 +33,14 @@ jobs:
       - name: Test
         working-directory: ${{github.workspace}}/cmake-build/shmd-tests
         run: ctest
+      - name: Move binaries for uploading
+        run: |
+          mkdir release 
+          cp cmake-build/shmd-dumper/Release/shmd-dumper.exe release
+          cp cmake-build/shmd-emulator/Release/shmd-emulator.exe release
       - name: Upload binaries
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: shmd
           path: |
-            cmake-build/shmd-dumper/Release/shmd-dumper.exe -> shmd-dumper.exe
-            cmake-build/shmd-emulator/Release/shmd-emulator.exe -> shmd-emulator.exe
+            release/*.exe
