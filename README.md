@@ -8,7 +8,8 @@ but can be expanded to use with any app with similar usage pattern
 
 TODO:
 
-* [ ] GitHub Actions CI
+* [ ] Embed version info
+* [ ] Create GitHub release
 * [ ] AC support
 * [ ] R3E support?
 * [ ] Docs
