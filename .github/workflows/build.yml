@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Build, test and deploy
-    runs-on: windows-latest
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v3
       - name: Install Conan
@@ -27,7 +27,7 @@ jobs:
         run: >
           cmake -S . 
           -B cmake-build-release-visual-studio 
-          -D "CMAKE_MODULE_PATH=cmake-build/dependencies/conan"
+          -D "CMAKE_MODULE_PATH=${{ github.workspace }}/cmake-build/dependencies/conan"
       - name: Build
         run: cmake --build cmake-build --config Release
       - name: Test

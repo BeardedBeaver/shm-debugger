@@ -77,16 +77,44 @@ Vanilla AC is coming later
 
 ## Using conan 1.x
 
+### Release
+
+Install Conan dependencies
+
 ```
 conan install . -if cmake-build-release-visual-studio/dependencies/conan --build missing -s compiler="Visual Studio" -s compiler.version=16 -s cppstd=20 -s build_type=Release
-cmake -S . -B cmake-build-release-visual-studio -D "CMAKE_MODULE_PATH=cmake-build-release-visual-studio/dependencies/conan"
-cmake --build
 ```
 
-Debug
+Configure cmake
+
+```
+cmake -S . -B cmake-build-release-visual-studio -D "CMAKE_MODULE_PATH=C:/absolute/path/to/cmake-build-release-visual-studio/dependencies/conan" -G "Visual Studio 16 2019"
+```
+
+Build
+
+```
+cmake --build cmake-build-debug-visual-studio --config Release
+```
+
+### Debug
+
+Install Conan dependencies
 
 ```
 conan install . -if cmake-build-debug-visual-studio/dependencies/conan --build missing -s compiler="Visual Studio" -s compiler.version=16 -s cppstd=20 -s build_type=Debug
+```
+
+Configure cmake
+
+```
+cmake -S . -B cmake-build-debug-visual-studio -D "CMAKE_MODULE_PATH=C:/absolute/path/to/cmake-build-debug-visual-studio/dependencies/conan" -G "Visual Studio 16 2019"
+```
+
+Build
+
+```
+cmake --build cmake-build-debug-visual-studio --config Debug
 ```
 
 ## Repo content
