@@ -38,5 +38,5 @@ jobs:
         with:
           name: shmd
           path: |
-            cmake-build/shmd-dumper/Release/shmd-dumper.exe
-            cmake-build/shmd-emulator/Release/shmd-emulator.exe
+            cmake-build/shmd-dumper/Release/shmd-dumper.exe -> shmd-dumper.exe
+            cmake-build/shmd-emulator/Release/shmd-emulator.exe -> shmd-emulator.exe
