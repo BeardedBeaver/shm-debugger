@@ -13,6 +13,10 @@ jobs:
         uses: turtlebrowser/get-conan@main
         with:
           version: 1.60.2
+      - name: Look around
+        run: |
+          pwd
+          ls -h
       - name: Install Conan dependencies
         run: >
           conan install . 
