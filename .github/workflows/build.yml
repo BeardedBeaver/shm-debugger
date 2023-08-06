@@ -10,24 +10,25 @@ jobs:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v3
-      - name: Install Conan
-        uses: turtlebrowser/get-conan@main
-        with:
-          version: 1.60.2
-      - name: Install Conan dependencies
-        run: >
-          conan install . 
-          -if cmake-build/dependencies/conan 
-          --build missing 
-          -s compiler="Visual Studio" 
-          -s compiler.version=16 
-          -s cppstd=20 
-          -s build_type=Release
+      #      - name: Install Conan
+      #        uses: turtlebrowser/get-conan@main
+      #        with:
+      #          version: 1.60.2
+      #      - name: Install Conan dependencies
+      #        run: >
+      #          conan install .
+      #          -if cmake-build/dependencies/conan
+      #          --build missing
+      #          -s compiler="Visual Studio"
+      #          -s compiler.version=16
+      #          -s cppstd=20
+      #          -s build_type=Release
       - name: Configure CMake
         run: >
           cmake -S . 
           -B cmake-build-release-visual-studio 
-          -D "CMAKE_MODULE_PATH=${{ github.workspace }}/cmake-build/dependencies/conan"
+          -D "CMAKE_MODULE_PATH='${{ github.workspace }}/cmake-build/dependencies/conan'"
+        shell: bash
       - name: Build
         run: cmake --build cmake-build --config Release
       - name: Test
