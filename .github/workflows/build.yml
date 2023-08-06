@@ -9,14 +9,11 @@ jobs:
     name: Build, test and deploy
     runs-on: windows-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Install Conan
         uses: turtlebrowser/get-conan@main
         with:
           version: 1.60.2
-      - name: Look around
-        run: |
-          pwd
-          ls -h
       - name: Install Conan dependencies
         run: >
           conan install . 
