@@ -17,20 +17,11 @@ std::vector<char> serializeData(const Data& data) {
     size += totalPhysicsSize;
     size += totalStaticSize;
 
-    std::vector<char> result;
-    result.resize(size);
+    std::vector<char> result(size, 0);
 
-    // Copy graphics data and add padding
     memcpy(result.data(), &data.graphics, sizeof(SPageFileGraphicACC));
-    std::memset(result.data() + sizeof(SPageFileGraphicACC), 0, totalGraphicsSize - sizeof(SPageFileGraphicACC));
-
-    // Copy physics data and add padding
     memcpy(result.data() + totalGraphicsSize, &data.physics, sizeof(SPageFilePhysicsACC));
-    std::memset(result.data() + totalGraphicsSize + sizeof(SPageFilePhysicsACC), 0, totalPhysicsSize - sizeof(SPageFilePhysicsACC));
-
-    // Copy statics data and add padding
     memcpy(result.data() + totalGraphicsSize + totalPhysicsSize, &data.statics, sizeof(SPageFileStaticACC));
-    std::memset(result.data() + totalGraphicsSize + totalPhysicsSize + sizeof(SPageFileStaticACC), 0, totalStaticSize - sizeof(SPageFileStaticACC));
 
     return result;
 }

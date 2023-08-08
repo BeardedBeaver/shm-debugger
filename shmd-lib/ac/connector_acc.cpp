@@ -37,9 +37,9 @@ void Connector::disconnect() {
 
 std::vector<char> Connector::update(int timeoutMs) {
     Data data;
-    data.graphics = *((SPageFileGraphicACC*)acData.m_staticACC.mapFileBuffer);
-    data.physics = *((SPageFilePhysicsACC*)acData.m_graphicsACC.mapFileBuffer);
-    data.statics = *((SPageFileStaticACC*)acData.m_physicsACC.mapFileBuffer);
+    data.graphics = *((SPageFileGraphicACC*)acData.m_graphicsACC.mapFileBuffer);
+    data.physics = *((SPageFilePhysicsACC*)acData.m_physicsACC.mapFileBuffer);
+    data.statics = *((SPageFileStaticACC*)acData.m_staticACC.mapFileBuffer);
 
     return serializeData(data);
 }
