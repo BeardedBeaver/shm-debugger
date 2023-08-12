@@ -80,9 +80,7 @@ typedef int ACC_RAIN_INTENSITY;
 
 #define ACC_CAR_NUMBER 60
 
-struct SPageFilePhysicsACC
-{
-
+struct SPageFilePhysicsACC {
     int packetId = 0;
     float gas = 0;
     float brake = 0;
@@ -163,7 +161,6 @@ struct SPageFilePhysicsACC
     float slipRatio[4];
     float slipAngle[4];
 
-
     int tcinAction = 0;
     int absInAction = 0;
     float suspensionDamage[4];
@@ -184,12 +181,9 @@ struct SPageFilePhysicsACC
     float slipVibrations;
     float gVibrations;
     float absVibrations;
-
 };
 
-
-struct SPageFileGraphicACC
-{
+struct SPageFileGraphicACC {
     int packetId = 0;
     AC_STATUS status = AC_OFF;
     AC_SESSION_TYPE session = ACC_PRACTICE;
@@ -227,7 +221,6 @@ struct SPageFileGraphicACC
 
     float windSpeed = 0;
     float windDirection = 0;
-
 
     int isSetupMenuVisible = 0;
 
@@ -286,9 +279,7 @@ struct SPageFileGraphicACC
     int gapBehind;
 };
 
-
-struct SPageFileStaticACC
-{
+struct SPageFileStaticACC {
     wchar_t smVersion[15];
     wchar_t acVersion[15];
 
@@ -305,7 +296,7 @@ struct SPageFileStaticACC
     // car static info
     float maxTorque = 0;
     float maxPower = 0;
-    int	maxRpm = 0;
+    int maxRpm = 0;
     float maxFuel = 0;
     float suspensionMaxTravel[4];
     float tyreRadius[4];
@@ -345,6 +336,5 @@ struct SPageFileStaticACC
 
     wchar_t dryTyresName[33];
 };
-
 
 #endif
