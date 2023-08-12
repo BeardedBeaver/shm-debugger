@@ -77,6 +77,7 @@ void Emulator::update(const std::vector<char>& bytes) {
 }
 
 void Emulator::stop() {
+    ((SPageFileGraphicACC*)m_graphicsACC.mapFileBuffer)->status = AC_OFF;
     CloseHandle(m_graphicsACC.mapFileBuffer);
     CloseHandle(m_physicsACC.mapFileBuffer);
     CloseHandle(m_staticACC.mapFileBuffer);
