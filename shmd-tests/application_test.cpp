@@ -30,13 +30,13 @@ TEST(ApplicationTest, run) {
 
     app.run(callable, 2, mockClock, mockSleepFunction);
 
-    EXPECT_EQ(count, 5);
+    ASSERT_EQ(count, 5);
 
-    EXPECT_EQ(sleepDurations.size(), 4);
-    EXPECT_EQ(sleepDurations[0], milliseconds(500));
-    EXPECT_EQ(sleepDurations[1], milliseconds(400));
-    EXPECT_EQ(sleepDurations[2], milliseconds(300));
-    EXPECT_EQ(sleepDurations[3], milliseconds(200));
+    ASSERT_EQ(sleepDurations.size(), 4);
+    ASSERT_EQ(sleepDurations[0], milliseconds(500));
+    ASSERT_EQ(sleepDurations[1], milliseconds(400));
+    ASSERT_EQ(sleepDurations[2], milliseconds(300));
+    ASSERT_EQ(sleepDurations[3], milliseconds(200));
 }
 
 TEST(ApplicationTest, sleep) {
