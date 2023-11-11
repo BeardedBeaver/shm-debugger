@@ -45,7 +45,7 @@ void defaultSleepFunction(int ms) {
     // spin lock
     auto start = high_resolution_clock::now();
     while ((high_resolution_clock::now() - start).count() / 1e9 < seconds)
-        ;
+        _mm_pause();
 }
 
 Application::Application() {
