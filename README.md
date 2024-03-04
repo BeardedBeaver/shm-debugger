@@ -14,7 +14,7 @@ TODO:
 * [ ] R3E support?
 * [ ] Docs
 
-# Bundled tools
+# Apps
 
 ## Dumper
 
@@ -76,49 +76,44 @@ Vanilla AC is coming later
 
 # Build
 
-## Using conan 1.x
+## Install dependencies
 
-### Release
+### Using make (recommended)
 
-Install Conan dependencies
+- Install GNU Make for Windows (https://gnuwin32.sourceforge.net/packages/make.htm)
+- Make sure python is in `PATH`
+- Run `make debug` (`make release` for release build)
 
-```
-conan install . -if cmake-build-release-visual-studio/dependencies/conan --build missing -s compiler="Visual Studio" -s compiler.version=16 -s cppstd=20 -s build_type=Release
-```
 
-Configure cmake
-
-```
-cmake -S . -B cmake-build-release-visual-studio -D "CMAKE_MODULE_PATH=C:/absolute/path/to/cmake-build-release-visual-studio/dependencies/conan" -G "Visual Studio 16 2019"
-```
-
-Build
-
-```
-cmake --build cmake-build-debug-visual-studio --config Release
-```
-
-### Debug
+### Using conan 1.x
 
 Install Conan dependencies
 
 ```
-conan install . -if cmake-build-debug-visual-studio/dependencies/conan --build missing -s compiler="Visual Studio" -s compiler.version=16 -s cppstd=20 -s build_type=Debug
+conan install . -if cmake-build/dependencies/conan --build missing -s compiler="Visual Studio" -s compiler.version=16 -s cppstd=20 -s build_type=Debug
 ```
 
-Configure cmake
+Or `-s build_type=Release` for release build
+
+## Configure cmake
 
 ```
-cmake -S . -B cmake-build-debug-visual-studio -D "CMAKE_MODULE_PATH=C:/absolute/path/to/cmake-build-debug-visual-studio/dependencies/conan" -G "Visual Studio 16 2019"
+cmake -S . -B cmake-build -D "CMAKE_MODULE_PATH=C:/absolute/path/to/cmake-build/dependencies/conan" -G "Visual Studio 16 2019"
 ```
 
-Build
+## Run build
 
 ```
-cmake --build cmake-build-debug-visual-studio --config Debug
+cmake --build cmake-build --config Debug
 ```
 
-## Repo content
+Or `--config Release` for release
+
+## IDE setup
+
+Set `CMAKE_MODULE_PATH` to point to `C:/absolute/path/to/cmake-build/dependencies/conan`
+
+# Repo content
 
 - `shmd-lib` - main application library
 - `shmd-tests` - GTest-based unit tests for `shmd-lib`
@@ -130,4 +125,4 @@ cmake --build cmake-build-debug-visual-studio --config Debug
 
 This project is distributed under MIT license
 
-Copyright (c) Dmitriy Linev 2023
+Copyright (c) Dmitriy Linev 2023-2024
