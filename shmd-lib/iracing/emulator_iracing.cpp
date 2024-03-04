@@ -1,10 +1,9 @@
 #include "emulator_iracing.h"
 
 #include <cassert>
-#include <iostream>
 #include <stdexcept>
 
-#include "connector_iracing.h"
+#include "data_iracing.h"
 #include "irsdk_defines.h"
 
 namespace iRacing {
@@ -80,6 +79,9 @@ Emulator::~Emulator() {
 }
 
 void Emulator::stop() {
+    if (m_sharedMem == nullptr) {
+        return;
+    }
     UnmapViewOfFile(m_sharedMem);
     CloseHandle(m_fileMappingHandle);
     CloseHandle(m_memMapFile);
