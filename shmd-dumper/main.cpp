@@ -1,6 +1,5 @@
 #include <chrono>
 #include <iostream>
-#include <thread>
 
 #include <boost/program_options.hpp>
 #include <fstream>

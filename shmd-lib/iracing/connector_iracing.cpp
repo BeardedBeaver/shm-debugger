@@ -1,5 +1,7 @@
 #include "connector_iracing.h"
 
+#include "data_iracing.h"
+
 namespace iRacing {
 bool Connector::connect(int timeoutMs) {
     bool result = irsdk_startup();
