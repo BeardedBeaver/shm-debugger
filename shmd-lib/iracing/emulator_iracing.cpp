@@ -67,11 +67,17 @@ void Emulator::update(const std::vector<char>& bytes) {
         if (data.header.varBuf[latest].tickCount < data.header.varBuf[i].tickCount)
             latest = i;
 
-    // memcpy(m_sharedMem + data.header.varBuf[latest].bufOffset, data.rawData.get(), data.header.bufLen);
-    // memcpy(m_sharedMem + data.header.varHeaderOffset, &data.headerEntry, sizeof(data.headerEntry));
-    // if (!data.sessionInfo.empty()) {
-    //     memcpy(m_sharedMem + data.header.sessionInfoOffset, data.sessionInfo.c_str(), data.sessionInfo.size());
-    // }
+    memcpy(m_sharedMem + data.header.varBuf[latest].bufOffset,
+           data.rawData.get(),
+           data.header.bufLen);
+
+    memcpy(m_sharedMem + data.header.varHeaderOffset,
+           &data.headerEntries[0],
+           sizeof(irsdk_varHeader) * data.header.numVars);
+
+    if (!data.sessionInfo.empty()) {
+        memcpy(m_sharedMem + data.header.sessionInfoOffset, data.sessionInfo.c_str(), data.sessionInfo.size());
+    }
 }
 
 Emulator::~Emulator() {
