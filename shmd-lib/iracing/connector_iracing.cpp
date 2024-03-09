@@ -2,9 +2,6 @@
 
 #include "data_iracing.h"
 
-#include <exception>
-#include <iostream>
-
 namespace iRacing {
 
 bool Connector::connect(int timeoutMs) {
