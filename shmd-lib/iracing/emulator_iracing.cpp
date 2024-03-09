@@ -1,10 +1,9 @@
 #include "emulator_iracing.h"
 
 #include <cassert>
-#include <iostream>
 #include <stdexcept>
 
-#include "connector_iracing.h"
+#include "data_iracing.h"
 #include "irsdk_defines.h"
 
 namespace iRacing {
@@ -68,8 +67,14 @@ void Emulator::update(const std::vector<char>& bytes) {
         if (data.header.varBuf[latest].tickCount < data.header.varBuf[i].tickCount)
             latest = i;
 
-    memcpy(m_sharedMem + data.header.varBuf[latest].bufOffset, data.rawData.get(), data.header.bufLen);
-    memcpy(m_sharedMem + data.header.varHeaderOffset, &data.headerEntry, sizeof(data.headerEntry));
+    memcpy(m_sharedMem + data.header.varBuf[latest].bufOffset,
+           data.rawData.get(),
+           data.header.bufLen);
+
+    memcpy(m_sharedMem + data.header.varHeaderOffset,
+           &data.headerEntries[0],
+           sizeof(irsdk_varHeader) * data.header.numVars);
+
     if (!data.sessionInfo.empty()) {
         memcpy(m_sharedMem + data.header.sessionInfoOffset, data.sessionInfo.c_str(), data.sessionInfo.size());
     }
@@ -80,6 +85,9 @@ Emulator::~Emulator() {
 }
 
 void Emulator::stop() {
+    if (m_sharedMem == nullptr) {
+        return;
+    }
     UnmapViewOfFile(m_sharedMem);
     CloseHandle(m_fileMappingHandle);
     CloseHandle(m_memMapFile);

@@ -1,13 +1,11 @@
 #pragma once
 
 #include <memory>
-#include <optional>
-#include <string>
 
 #include "connector.h"
-#include "data_iracing.h"
 
 namespace iRacing {
+
 class Connector : public ::Connector {
     int rawDataLength{};
     int sessionInfoUpdate{};
