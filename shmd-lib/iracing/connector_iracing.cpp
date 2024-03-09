@@ -2,7 +2,11 @@
 
 #include "data_iracing.h"
 
+#include <exception>
+#include <iostream>
+
 namespace iRacing {
+
 bool Connector::connect(int timeoutMs) {
     bool result = irsdk_startup();
     if (result) {
@@ -46,8 +50,10 @@ std::vector<char> Connector::update(int timeoutMs) {
                 data.sessionInfo = std::string(irsdk_getSessionInfoStr());
             }
 
-            const irsdk_varHeader* headerEntry = irsdk_getVarHeaderEntry(0);
-            data.headerEntry = *headerEntry;
+            data.headerEntries.reserve(header->numVars);
+            for (int i = 0; i < header->numVars; i++) {
+                data.headerEntries.push_back(*irsdk_getVarHeaderEntry(i));
+            }
             data.header = *header;
 
             auto result = serializeData(data);

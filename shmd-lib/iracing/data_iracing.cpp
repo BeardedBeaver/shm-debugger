@@ -1,9 +1,11 @@
 #include "data_iracing.h"
 
 namespace iRacing {
+
 std::vector<char> serializeData(const Data& data) {
-    size_t size = sizeof(data.header) + sizeof(data.headerEntry);
+    size_t size = sizeof(data.header); // overall header
     size_t headerEntryOffset = sizeof(data.header);
+    size += sizeof(irsdk_varHeader) * data.header.numVars; // all header entries
     size_t sessionInfoLengthOffset = size;
     size_t sessionInfoLength = data.sessionInfo.size();
     size += sizeof(uint64_t);
@@ -16,12 +18,32 @@ std::vector<char> serializeData(const Data& data) {
 
     std::vector<char> result;
     result.resize(size);
-    memcpy(result.data(), reinterpret_cast<const char*>(&data.header), sizeof(data.header));
-    memcpy(result.data() + headerEntryOffset, reinterpret_cast<const char*>(&data.headerEntry), sizeof(data.headerEntry));
-    memcpy(result.data() + sessionInfoLengthOffset, reinterpret_cast<const char*>(&sessionInfoLength), sizeof(sessionInfoLength));
-    memcpy(result.data() + sessionInfoOffset, reinterpret_cast<const char*>(data.sessionInfo.c_str()), sessionInfoLength);
-    memcpy(result.data() + rawDataLengthOffset, reinterpret_cast<const char*>(&data.rawDataLength), sizeof(data.rawDataLength));
-    memcpy(result.data() + rawDataOffset, reinterpret_cast<const char*>(data.rawData.get()), data.rawDataLength);
+
+    memcpy(result.data(),
+           reinterpret_cast<const char*>(&data.header),
+           sizeof(data.header));
+
+    for (int i = 0; i < data.header.numVars; i++) {
+        memcpy(result.data() + headerEntryOffset + sizeof(irsdk_varHeader) * i,
+               reinterpret_cast<const char*>(&data.headerEntries[i]),
+               sizeof(irsdk_varHeader));
+    }
+
+    memcpy(result.data() + sessionInfoLengthOffset,
+           reinterpret_cast<const char*>(&sessionInfoLength),
+           sizeof(sessionInfoLength));
+
+    memcpy(result.data() + sessionInfoOffset,
+           reinterpret_cast<const char*>(data.sessionInfo.c_str()),
+           sessionInfoLength);
+
+    memcpy(result.data() + rawDataLengthOffset,
+           reinterpret_cast<const char*>(&data.rawDataLength),
+           sizeof(data.rawDataLength));
+
+    memcpy(result.data() + rawDataOffset,
+           reinterpret_cast<const char*>(data.rawData.get()),
+           data.rawDataLength);
 
     return result;
 }
@@ -32,9 +54,14 @@ Data deserializeData(const std::vector<char>& bytes) {
     memcpy(&result.header, bytes.data(), sizeof(result.header));
     size_t headerEntryOffset = sizeof(result.header);
 
-    memcpy(&result.headerEntry, bytes.data() + headerEntryOffset, sizeof(result.headerEntry));
+    result.headerEntries.resize(result.header.numVars);
+    for (int i = 0; i < result.header.numVars; i++) {
+        memcpy(&result.headerEntries[i],
+               reinterpret_cast<const char*>(bytes.data() + headerEntryOffset + sizeof(irsdk_varHeader) * i),
+               sizeof(irsdk_varHeader));
+    }
 
-    size_t sessionInfoLengthOffset = headerEntryOffset + sizeof(result.headerEntry);
+    size_t sessionInfoLengthOffset = headerEntryOffset + sizeof(irsdk_varHeader) * result.header.numVars;
     size_t sessionInfoLength;
     memcpy(&sessionInfoLength, bytes.data() + sessionInfoLengthOffset, sizeof(sessionInfoLength));
 

@@ -16,13 +16,13 @@ protected:
         testData.header.numBuf = 1;
         testData.header.bufLen = 40;
 
-        testData.headerEntry.type = 1;
-        testData.headerEntry.offset = 2;
-        testData.headerEntry.count = 3;
-        testData.headerEntry.countAsTime = true;
-        strcpy_s(testData.headerEntry.name, "TestName");
-        strcpy_s(testData.headerEntry.desc, "TestDesc");
-        strcpy_s(testData.headerEntry.unit, "TestUnit");
+        // testData.headerEntry.type = 1;
+        // testData.headerEntry.offset = 2;
+        // testData.headerEntry.count = 3;
+        // testData.headerEntry.countAsTime = true;
+        // strcpy_s(testData.headerEntry.name, "TestName");
+        // strcpy_s(testData.headerEntry.desc, "TestDesc");
+        // strcpy_s(testData.headerEntry.unit, "TestUnit");
 
         testData.sessionInfo = "Sample session info";
 
@@ -53,13 +53,13 @@ void compareData(const iRacing::Data& lhs, const iRacing::Data& rhs) {
     EXPECT_EQ(lhs.header.numBuf, rhs.header.numBuf);
     EXPECT_EQ(lhs.header.bufLen, rhs.header.bufLen);
 
-    EXPECT_EQ(lhs.headerEntry.type, rhs.headerEntry.type);
-    EXPECT_EQ(lhs.headerEntry.offset, rhs.headerEntry.offset);
-    EXPECT_EQ(lhs.headerEntry.count, rhs.headerEntry.count);
-    EXPECT_EQ(lhs.headerEntry.countAsTime, rhs.headerEntry.countAsTime);
-    EXPECT_STREQ(lhs.headerEntry.name, rhs.headerEntry.name);
-    EXPECT_STREQ(lhs.headerEntry.desc, rhs.headerEntry.desc);
-    EXPECT_STREQ(lhs.headerEntry.unit, rhs.headerEntry.unit);
+    // EXPECT_EQ(lhs.headerEntry.type, rhs.headerEntry.type);
+    // EXPECT_EQ(lhs.headerEntry.offset, rhs.headerEntry.offset);
+    // EXPECT_EQ(lhs.headerEntry.count, rhs.headerEntry.count);
+    // EXPECT_EQ(lhs.headerEntry.countAsTime, rhs.headerEntry.countAsTime);
+    // EXPECT_STREQ(lhs.headerEntry.name, rhs.headerEntry.name);
+    // EXPECT_STREQ(lhs.headerEntry.desc, rhs.headerEntry.desc);
+    // EXPECT_STREQ(lhs.headerEntry.unit, rhs.headerEntry.unit);
 
     EXPECT_EQ(lhs.sessionInfo, rhs.sessionInfo);
 

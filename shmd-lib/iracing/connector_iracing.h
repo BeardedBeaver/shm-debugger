@@ -5,6 +5,7 @@
 #include "connector.h"
 
 namespace iRacing {
+
 class Connector : public ::Connector {
     int rawDataLength{};
     int sessionInfoUpdate{};

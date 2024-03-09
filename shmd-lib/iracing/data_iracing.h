@@ -8,9 +8,10 @@
 #include "irsdk/irsdk_defines.h"
 
 namespace iRacing {
+
 struct Data {
     irsdk_header header;
-    irsdk_varHeader headerEntry;
+    std::vector<irsdk_varHeader> headerEntries;
     std::string sessionInfo;
     size_t rawDataLength{};
     std::unique_ptr<char[]> rawData;
