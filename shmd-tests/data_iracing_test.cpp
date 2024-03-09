@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "data_iracing.h"
+#include "irsdk_defines.h"
 
 class iRacingDataTest : public ::testing::Test {
 protected:
@@ -16,13 +17,31 @@ protected:
         testData.header.numBuf = 1;
         testData.header.bufLen = 40;
 
-        // testData.headerEntry.type = 1;
-        // testData.headerEntry.offset = 2;
-        // testData.headerEntry.count = 3;
-        // testData.headerEntry.countAsTime = true;
-        // strcpy_s(testData.headerEntry.name, "TestName");
-        // strcpy_s(testData.headerEntry.desc, "TestDesc");
-        // strcpy_s(testData.headerEntry.unit, "TestUnit");
+        {
+            irsdk_varHeader headerEntry;
+            headerEntry.type = 1;
+            headerEntry.offset = 2;
+            headerEntry.count = 3;
+            headerEntry.countAsTime = true;
+            strcpy_s(headerEntry.name, "TestName");
+            strcpy_s(headerEntry.desc, "TestDesc");
+            strcpy_s(headerEntry.unit, "TestUnit");
+
+            testData.headerEntries.push_back(headerEntry);
+        }
+
+        {
+            irsdk_varHeader headerEntry;
+            headerEntry.type = 2;
+            headerEntry.offset = 3;
+            headerEntry.count = 4;
+            headerEntry.countAsTime = true;
+            strcpy_s(headerEntry.name, "TestName2");
+            strcpy_s(headerEntry.desc, "TestDesc2");
+            strcpy_s(headerEntry.unit, "TestUnit2");
+
+            testData.headerEntries.push_back(headerEntry);
+        }
 
         testData.sessionInfo = "Sample session info";
 
@@ -53,13 +72,15 @@ void compareData(const iRacing::Data& lhs, const iRacing::Data& rhs) {
     EXPECT_EQ(lhs.header.numBuf, rhs.header.numBuf);
     EXPECT_EQ(lhs.header.bufLen, rhs.header.bufLen);
 
-    // EXPECT_EQ(lhs.headerEntry.type, rhs.headerEntry.type);
-    // EXPECT_EQ(lhs.headerEntry.offset, rhs.headerEntry.offset);
-    // EXPECT_EQ(lhs.headerEntry.count, rhs.headerEntry.count);
-    // EXPECT_EQ(lhs.headerEntry.countAsTime, rhs.headerEntry.countAsTime);
-    // EXPECT_STREQ(lhs.headerEntry.name, rhs.headerEntry.name);
-    // EXPECT_STREQ(lhs.headerEntry.desc, rhs.headerEntry.desc);
-    // EXPECT_STREQ(lhs.headerEntry.unit, rhs.headerEntry.unit);
+    for (int i = 0; i < lhs.header.numVars; i++) {
+        EXPECT_EQ(lhs.headerEntries[i].type, rhs.headerEntries[i].type);
+        EXPECT_EQ(lhs.headerEntries[i].offset, rhs.headerEntries[i].offset);
+        EXPECT_EQ(lhs.headerEntries[i].count, rhs.headerEntries[i].count);
+        EXPECT_EQ(lhs.headerEntries[i].countAsTime, rhs.headerEntries[i].countAsTime);
+        EXPECT_STREQ(lhs.headerEntries[i].name, rhs.headerEntries[i].name);
+        EXPECT_STREQ(lhs.headerEntries[i].desc, rhs.headerEntries[i].desc);
+        EXPECT_STREQ(lhs.headerEntries[i].unit, rhs.headerEntries[i].unit);
+    }
 
     EXPECT_EQ(lhs.sessionInfo, rhs.sessionInfo);
 
