@@ -9,11 +9,11 @@ public:
     explicit Loader(std::istream& stream);
 
     std::vector<char> load();
-    [[nodiscard]] int getFps() const;
+    [[nodiscard]] int32_t getFps() const;
     [[nodiscard]] std::array<char, 4> getId() const;
 
 private:
     std::istream& m_stream;
-    int m_fps;
+    int32_t m_fps;
     std::array<char, 4> m_id;
 };

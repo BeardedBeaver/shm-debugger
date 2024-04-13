@@ -52,7 +52,7 @@ std::vector<char> Loader::load() {
     return uncompressedData;
 }
 
-int Loader::getFps() const {
+int32_t Loader::getFps() const {
     return m_fps;
 }
 

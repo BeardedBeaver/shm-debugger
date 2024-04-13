@@ -49,7 +49,7 @@ TEST(LoaderSaverTest, Breathing) {
     auto v4 = std::vector<char>(s4.begin(), s4.end());
 
     TemporaryFile file;
-    const int fps = 42;
+    const int32_t fps = 42;
     const std::array<char, 4> id = {'A', 'B', 'C', 'D'};
 
     {
